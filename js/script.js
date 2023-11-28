@@ -8,9 +8,24 @@ let games_won = 0;
 let games_lost = 0;
 let games_tied = 0;
 
-while(games_won < 3 && games_lost < 3)
+//Updates the score string
+updateScoreString();
+
+
+//Sets listeners to buttons
+let buttons = document.querySelectorAll('.choiceButton');
+buttons.forEach((button) => 
+    button.addEventListener('click', onClickChoiceButton));
+
+
+//Listener
+function onClickChoiceButton()
 {
-    runGame();
+    if(this.id >= 0 && this.id <= 2)
+    {
+        playRound(this.id, getComputerChoice());
+    }
+    return;
 }
 
 //Converts choice ID to string
@@ -104,6 +119,7 @@ function playRound(playerSelection, computerSelection)
     }
 
     //Determine result string
+    /*
     switch (result)
     {
         case 0:
@@ -121,7 +137,10 @@ function playRound(playerSelection, computerSelection)
 
     }
     resultArray = [result, resultStr];
-    return resultArray;
+    return resultArray;*/
+    calculateScore(result);
+    updateScoreString();
+    return;
 }
 
 function runGame()
@@ -184,4 +203,31 @@ function calculateScore(result)
 
     let str = "You have played "+games_played+" games. You won "+games_won+" times and lost "+games_lost+" times.";
     console.log(str);
+}
+
+function updateScoreString()
+{
+    let str = "";
+
+    if(games_played > 0)
+    {
+        if(games_won >= 5)
+        {
+            str = "Gefeliciteerd! Jij won "+games_won+" keer en de kip won "+games_lost+" keer.";
+        }
+        else if(games_lost >= 5)
+        {
+            str = "Helaas! Jij won slechts "+games_won+" keer en de kip won "+games_lost+" keer.";
+        }
+        else
+        {
+            str = "Je hebt  "+games_played+" keer gespeeld. Jij won "+games_won+" keer en de kip won "+games_lost+" keer.";
+        }
+    }
+    else{
+        str = "Maak een keuze door op een knop te klikken.";
+    }
+
+    const textField = document.querySelector('#scoreText');
+    textField.textContent = str;
 }
