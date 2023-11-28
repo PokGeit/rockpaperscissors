@@ -13,7 +13,7 @@ updateScoreString();
 
 
 //Sets listeners to buttons
-let buttons = document.querySelectorAll('.choiceButton');
+const buttons = document.querySelectorAll('.choiceButton');
 buttons.forEach((button) => 
     button.addEventListener('click', onClickChoiceButton));
 
@@ -28,23 +28,30 @@ function onClickChoiceButton()
     return;
 }
 
+//Greys the buttons when the game is finished
+function greyAllButtons()
+{
+    buttons.forEach((button) => 
+    button.disabled = true);
+}
+
 //Converts choice ID to string
 function returnChoiceString(choice)
 {
     let str = "Undefined";
     if(choice == CHOICE_ROCK)
     {
-        str = "Rock";
+        str = "Steen";
     }
 
     else if(choice == CHOICE_PAPER)
     {
-        str = "Paper";
+        str = "Papier";
     }
 
     else
     {
-        str = "Scissors";
+        str = "Schaar";
     }
     return str;
 }
@@ -118,28 +125,33 @@ function playRound(playerSelection, computerSelection)
         }
     }
 
-    //Determine result string
-    /*
+    updateResultString(result, playerSelection, computerSelection);
+    calculateScore(result);
+    updateScoreString();
+    return;
+}
+
+function updateResultString(result, playerSelection, computerSelection)
+{
+    let resultStr = "";
+
     switch (result)
     {
         case 0:
-            resultStr = "You lost! You chose "+returnChoiceString(playerSelection)+" while computer chose "+returnChoiceString(computerSelection);
+            resultStr = "Verloren! Jij koos "+returnChoiceString(playerSelection)+" terwijl de kip koos voor "+returnChoiceString(computerSelection);
             break;
         case 1:
-            resultStr = "You won! You chose "+returnChoiceString(playerSelection)+" while computer chose "+returnChoiceString(computerSelection);
+            resultStr = "Gewonnen! Jij koos "+returnChoiceString(playerSelection)+" terwijl de kip koos voor "+returnChoiceString(computerSelection);
             break;
         case 2:
-            resultStr = "It's a tie! You chose "+returnChoiceString(playerSelection)+" while computer chose "+returnChoiceString(computerSelection);
+            resultStr = "Gelijkspel! Jij koos "+returnChoiceString(playerSelection)+" terwijl de kip koos voor "+returnChoiceString(computerSelection);
             break;
         default:
             resultStr = "An error occured and a winner could not be established.";
-            resultStr = "It's an error! You chose "+returnChoiceString(playerSelection)+" while computer chose "+returnChoiceString(computerSelection);
-
     }
-    resultArray = [result, resultStr];
-    return resultArray;*/
-    calculateScore(result);
-    updateScoreString();
+
+    const textField = document.querySelector('#resultText');
+    textField.textContent = resultStr;
     return;
 }
 
@@ -214,10 +226,12 @@ function updateScoreString()
         if(games_won >= 5)
         {
             str = "Gefeliciteerd! Jij won "+games_won+" keer en de kip won "+games_lost+" keer.";
+            greyAllButtons();
         }
         else if(games_lost >= 5)
         {
             str = "Helaas! Jij won slechts "+games_won+" keer en de kip won "+games_lost+" keer.";
+            greyAllButtons();
         }
         else
         {
