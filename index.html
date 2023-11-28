@@ -5,8 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, paper scissors</title>
     <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="style.css"></style>
 </head>
 <body>
-    
+    <div class="header">
+        <p class="headerTitle">Steen, papier, schaar</p>
+        <p class="headerSubTitle">Versla de kip!</p>
+    </div>
+
+    <div class="scoreScreen" id ="scoreScreen">
+        <P class="mainText">
+            Versla de kip in steen, papier, schaar! Maak een keuze en zie het resultaat. 
+            Win 5 ronden om het spel te winnen.
+        </P>
+
+        <P class="mainText" id ="scoreText">
+            Score
+        </P>
+    </div>
+
+    <div class="buttonBox">
+        <button class="choiceButton" id=0>Steen</button>
+
+        <button class="choiceButton" id=1>Papier</button>
+
+        <button class="choiceButton" id=2>Schaar</button>        
+    </div>
+
+    <div class="resultScreen">
+        <P class="mainText" id ="resultText">
+            
+        </P>
+    </div>
 </body>
 </html>
