@@ -1,3 +1,5 @@
+runGame();
+
 //Constants
 const CHOICE_ROCK = 0;
 const CHOICE_PAPER = 1;
@@ -43,7 +45,7 @@ playRound(playerSelection, computerSelection)
     */
     let result = 3;
     let resultStr = "";
-    let resultArray[0, ""];
+    let resultArray = [];
 
     if(playerSelection == CHOICE_ROCK)
     {
@@ -108,4 +110,9 @@ playRound(playerSelection, computerSelection)
     }
     resultArray = [result, resultStr];
     return resultArray;
+}
+
+runGame()
+{
+    prompt("test");
 }
